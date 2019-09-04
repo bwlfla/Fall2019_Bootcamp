@@ -8,11 +8,19 @@ var listingData, server;
 
 var requestHandler = function(request, response) {
   var parsedUrl = url.parse(request.url);
-
+  if(parsedUrl.pathname=='/listings'){
+  	response.writeHead(200,{'Content-Type':'text/plain'});
+  	response.write("Thanks for waiting");
+  	response.end();
+  }
+  else{
+  	response.writeHead(404);
+  	response.end();
+  }
   /*
     Your request handler should send listingData in the JSON format as a response if a GET request 
     is sent to the '/listings' path. Otherwise, it should send a 404 error. 
-
+	
     HINT: Explore the request object and its properties 
     HINT: Explore the response object and its properties
     https://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177
@@ -38,14 +46,14 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
    */
 
     //Check for errors
-  
+  	if(err) throw err;
 
    //Save the sate in the listingData variable already defined
   
 
   //Creates the server
-  
+  server=http.createServer(requestHandler);
   //Start the server
-
+  server.listen(port);
 
 });
