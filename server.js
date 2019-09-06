@@ -15,7 +15,7 @@ var requestHandler = function(request, response) {
   }
   else{
   	response.writeHead(404);
-  	response.write("Bad gateway error")
+  	response.write("Bad gateway error");
   	response.end();
   }
   /*
@@ -59,5 +59,5 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
   	server=http.createServer(requestHandler);
   	//Start the server
   	server.listen(port);
-
+  	console.log("server listening on: http://localhost:"+port);
 });
