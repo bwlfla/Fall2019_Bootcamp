@@ -10,8 +10,10 @@ var requestHandler = function(request, response) {
   var parsedUrl = url.parse(request.url);
   if(parsedUrl.pathname=='/listings'){
   	response.writeHead(200,{'Content-Type':'text/plain'});
-  	response.write("Thanks for waiting");
-  	response.end();
+  	response.write(JSON.stringify(listingData,null,4));
+//   	response.writeHead(200,{'Content-Type':'application/json'});
+//  	response.write(listingData);
+	response.end();
   }
   else{
   	response.writeHead(404);
@@ -46,10 +48,20 @@ fs.readFile('listings.json', 'utf8', function(err, data) {
    */
 
     //Check for errors
-  	if(err) throw err;
+  	if(err){
+  		console.error(err)
+  		throw err;
+  	} 
+  		
 
-   //Save the sate in the listingData variable already defined
-  
+   //Save the state in the listingData variable already defined
+ // 	try{
+  		listingData=JSON.parse(data);
+
+ // 	} catch(err){
+  //		console.error(err)
+  	//}
+  	console.log(listingData)
 
   //Creates the server
   server=http.createServer(requestHandler);
