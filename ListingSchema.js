@@ -7,6 +7,13 @@ var mongoose = require('mongoose'),
      See also https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
   */
 var listingSchema = new Schema({
+	code: {type:String, required: true, unique: true},
+	name: {type:String},
+	coordinates: {
+		latitude: Number,
+		longitude: Number 
+	},
+	address: String
   /* Your code for a schema here */ 
   //Check out - https://mongoosejs.com/docs/guide.html
 
