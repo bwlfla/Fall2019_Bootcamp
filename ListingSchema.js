@@ -13,7 +13,9 @@ var listingSchema = new Schema({
 		latitude: Number,
 		longitude: Number 
 	},
-	address: String
+	address: String,
+  created_at: Date,
+  updated_at: Date
   /* Your code for a schema here */ 
   //Check out - https://mongoosejs.com/docs/guide.html
 
@@ -23,6 +25,14 @@ var listingSchema = new Schema({
    See https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
 */
 listingSchema.pre('save', function(next) {
+  var currentDate=new Date();
+
+  this.updated_at=currentDate;
+
+  if(!this.created_at)
+    this.created_at=currentDate;
+
+  next();
   /* your code here */
 });
 
