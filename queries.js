@@ -4,6 +4,7 @@ var mongoose=require('mongoose'),
     config=require('./config');
 
 mongoose.set('useCreateIndex',true);
+mongoose.set('useFindAndModify',false);
 /* Connect to your database using mongoose - remember to keep your key secret*/
 mongoose.connect(config.db.uri,{useNewUrlParser:true});
 /* Fill out these functions using Mongoose queries*/
@@ -41,14 +42,23 @@ var updatePhelpsLab = function() {
     Correct Address: 1953 Museum Rd, Gainesville, FL 32603
 
    */
+   Listing.findOneAndUpdate({code:'PHL'},{address:"1953 Museum Rd, Gainesville, FL 32603"},{upsert: true, returnNewDocument:true},function(err){
+      if(err) return handleError(err);
+   });
 };
 var retrieveAllListings = function() {
   /* 
     Retrieve all listings in the database, and log them to the console. 
    */
+
+   //Listing.findAll
+   Listing.find({},function(err,result){
+    if(err) throw err;
+    console.log(JSON.stringify(result,null,1));
+   });
 };
 
 findLibraryWest();
 removeCable();
-//updatePhelpsMemorial();
-//retrieveAllListings();
+updatePhelpsLab();
+retrieveAllListings();
